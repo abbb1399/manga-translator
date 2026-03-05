@@ -1,0 +1,27 @@
+services:
+  manga-translator:
+    image: zyddnys/manga-image-translator:main
+    container_name: manga-translator
+    ports:
+      - "5003:5003"
+    ipc: host
+    entrypoint: python
+    command: server/main.py --verbose --start-instance --host=0.0.0.0 --port=5003
+    volumes:
+      - ./result:/app/result
+      - manga-translator-models:/app/models
+    env_file:
+      - .env
+    restart: unless-stopped
+    # GPU 사용 시 아래 주석 해제
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: all
+    #           capabilities: [gpu]
+    # command: server/main.py --verbose --start-instance --host=0.0.0.0 --port=5003 --use-gpu
+
+volumes:
+  manga-translator-models:
