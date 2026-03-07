@@ -1,3 +1,5 @@
+name: manga-translator-web
+
 services:
   db:
     image: postgres:17.0
