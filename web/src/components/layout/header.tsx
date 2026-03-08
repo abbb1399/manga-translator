@@ -1,16 +1,10 @@
 "use client";
 
+import { useState } from "react";
 import { BetterAuthActionButton } from "@/components/auth/better-auth-action-button";
-import { SocialAuthButtons } from "@/components/auth/social-auth-buttons";
+import { LoginDialog } from "@/components/auth/login-dialog";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -22,6 +16,7 @@ import { authClient } from "@/lib/auth/auth-client";
 import Link from "next/link";
 
 export function Header() {
+  const [loginOpen, setLoginOpen] = useState(false);
   const { data: session } = authClient.useSession();
 
   return (
@@ -58,19 +53,10 @@ export function Header() {
             </DropdownMenuContent>
           </DropdownMenu>
         ) : (
-          <Dialog>
-            <DialogTrigger asChild>
-              <Button size="sm">로그인</Button>
-            </DialogTrigger>
-            <DialogContent>
-              <DialogHeader>
-                <DialogTitle>로그인</DialogTitle>
-              </DialogHeader>
-              <div className="grid grid-cols-2 gap-3">
-                <SocialAuthButtons />
-              </div>
-            </DialogContent>
-          </Dialog>
+          <>
+            <Button size="sm" onClick={() => setLoginOpen(true)}>로그인</Button>
+            <LoginDialog open={loginOpen} onOpenChange={setLoginOpen} />
+          </>
         )}
       </div>
     </header>

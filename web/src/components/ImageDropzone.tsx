@@ -9,10 +9,11 @@ import { ImageIcon } from "lucide-react";
 
 interface Props {
   onFileSelected: (file: File) => void;
+  onLoginRequired?: () => void;
   disabled?: boolean;
 }
 
-export function ImageDropzone({ onFileSelected, disabled }: Props) {
+export function ImageDropzone({ onFileSelected, onLoginRequired, disabled }: Props) {
   const onDrop = useCallback(
     (acceptedFiles: File[]) => {
       if (acceptedFiles.length > 0) {
@@ -37,8 +38,10 @@ export function ImageDropzone({ onFileSelected, disabled }: Props) {
     maxFiles: 1,
     maxSize: 1024 * 1024 * 4.5,
     accept: { "image/*": [] },
-    disabled,
+    disabled: disabled || !!onLoginRequired,
   });
+
+  const rootProps = getRootProps();
 
   return (
     <Card
@@ -46,11 +49,14 @@ export function ImageDropzone({ onFileSelected, disabled }: Props) {
         "border-2 border-dashed transition-colors duration-200 ease-in-out w-full h-64",
         disabled
           ? "border-border cursor-not-allowed opacity-60"
-          : isDragActive
-            ? "border-primary bg-primary/10 border-solid cursor-pointer"
-            : "border-border hover:border-primary cursor-pointer",
+          : onLoginRequired
+            ? "border-border hover:border-primary cursor-pointer"
+            : isDragActive
+              ? "border-primary bg-primary/10 border-solid cursor-pointer"
+              : "border-border hover:border-primary cursor-pointer",
       )}
-      {...getRootProps()}
+      {...rootProps}
+      onClick={onLoginRequired ? onLoginRequired : rootProps.onClick}
     >
       <CardContent className="flex flex-col items-center justify-center h-full w-full gap-y-3">
         <input {...getInputProps()} />
