@@ -34,7 +34,7 @@ export async function POST(request: Request) {
       return Response.json({ error: "image is required" }, { status: 400 });
     }
 
-    const translator = (formData.get("translator") as string) ?? "openai";
+    const translator = (formData.get("translator") as string) ?? "gemini";
     const targetLang = (formData.get("target_lang") as string) ?? "KOR";
 
     // 작업 디렉토리 생성 및 파일 저장
