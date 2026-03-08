@@ -19,8 +19,8 @@ import { ReactNode, Suspense } from "react";
 // import { ChangePasswordForm } from "./_components/change-password-form";
 // import { SetPasswordButton } from "./_components/set-password-buttont";
 import { SessionManagement } from "./_components/session-management";
-// import { AccountLinking } from "./_components/account-linking";
-// import { AccountDeletion } from "./_components/account-deletion";
+import { AccountLinking } from "./_components/account-linking";
+import { AccountDeletion } from "./_components/account-deletion";
 // import { TwoFactorAuth } from "./_components/two-factor-auth";
 // import { PasskeyManagement } from "./_components/passkey-management";
 
@@ -106,9 +106,13 @@ export default async function ProfilePage() {
         <TabsContent value="danger">
           <Card className="border border-destructive">
             <CardHeader>
-              <CardTitle className="text-destructive">Danger Zone</CardTitle>
+              <CardTitle className="text-destructive">
+                삭제하면 되돌릴 수 없습니다.
+              </CardTitle>
             </CardHeader>
-            <CardContent>{/* <AccountDeletion /> */}</CardContent>
+            <CardContent>
+              <AccountDeletion />
+            </CardContent>
           </Card>
         </TabsContent>
       </Tabs>
@@ -127,7 +131,7 @@ async function LinkedAccountsTab() {
   return (
     <Card>
       <CardContent>
-        {/* <AccountLinking currentAccounts={nonCredentialAccounts} /> */}
+        <AccountLinking currentAccounts={nonCredentialAccounts} />
       </CardContent>
     </Card>
   );

@@ -31,9 +31,6 @@ export default function Home() {
               <Button asChild size="lg">
                 <Link href="/profile">프로필</Link>
               </Button>
-              <Button asChild size="lg" variant="outline">
-                <Link href="/organizations">조직</Link>
-              </Button>
 
               <BetterAuthActionButton
                 size="lg"
