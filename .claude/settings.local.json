@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(docker exec manga-worker wc -l /app/manga_translator/mode/share.py)",
+      "Bash(docker exec manga-worker cat /app/manga_translator/mode/share.py)"
+    ]
+  }
+}

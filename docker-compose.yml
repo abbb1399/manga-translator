@@ -2,17 +2,16 @@ services:
   manga-translator:
     image: zyddnys/manga-image-translator:main
     container_name: manga-translator
-    ports:
-      - "5003:5003"
     ipc: host
-    entrypoint: python
-    command: server/main.py --verbose --start-instance --host=0.0.0.0 --port=5003
     volumes:
       - ./result:/app/result
       - manga-translator-models:/app/models
+      - manga-translator-upload:/app/upload
     env_file:
       - .env
     restart: unless-stopped
+    # 상시 실행이 아닌, docker exec으로 local 모드 번역 실행
+    entrypoint: ["tail", "-f", "/dev/null"]
     # GPU 사용 시 아래 주석 해제
     # deploy:
     #   resources:
@@ -21,7 +20,7 @@ services:
     #         - driver: nvidia
     #           count: all
     #           capabilities: [gpu]
-    # command: server/main.py --verbose --start-instance --host=0.0.0.0 --port=5003 --use-gpu
 
 volumes:
   manga-translator-models:
+  manga-translator-upload:
