@@ -1,4 +1,3 @@
-import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { auth } from "@/lib/auth/auth";
@@ -15,14 +14,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { ReactNode, Suspense } from "react";
-// import { ProfileUpdateForm } from "./_components/profile-update-form";
-// import { ChangePasswordForm } from "./_components/change-password-form";
-// import { SetPasswordButton } from "./_components/set-password-buttont";
+import { ProfileUpdateForm } from "./_components/profile-update-form";
 import { SessionManagement } from "./_components/session-management";
 import { AccountLinking } from "./_components/account-linking";
 import { AccountDeletion } from "./_components/account-deletion";
-// import { TwoFactorAuth } from "./_components/two-factor-auth";
-// import { PasskeyManagement } from "./_components/passkey-management";
 
 export default async function ProfilePage() {
   const session = await auth.api.getSession({ headers: await headers() });
@@ -86,7 +81,7 @@ export default async function ProfilePage() {
         <TabsContent value="profile">
           <Card>
             <CardContent>
-              {/* <ProfileUpdateForm user={session.user} /> */}
+              <ProfileUpdateForm user={session.user} />
             </CardContent>
           </Card>
         </TabsContent>
