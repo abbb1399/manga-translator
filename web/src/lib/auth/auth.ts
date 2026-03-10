@@ -6,7 +6,7 @@ import { nextCookies } from "better-auth/next-js";
 import { stripe } from "@better-auth/stripe";
 import Stripe from "stripe";
 import { member } from "@/drizzle/schema";
-import { and, eq } from "drizzle-orm";
+import { and, desc, eq } from "drizzle-orm";
 import { STRIPE_PLANS } from "./stripe";
 import { organization } from "better-auth/plugins";
 
@@ -75,4 +75,25 @@ export const auth = betterAuth({
     provider: "pg",
     schema,
   }),
+  databaseHooks: {
+    // 로그인할때마다
+    session: {
+      create: {
+        before: async (userSession) => {
+          const membership = await db.query.member.findFirst({
+            where: eq(member.userId, userSession.userId),
+            orderBy: desc(member.createdAt),
+            columns: { organizationId: true },
+          });
+
+          return {
+            data: {
+              ...userSession,
+              activeOrganizationId: membership?.organizationId,
+            },
+          };
+        },
+      },
+    },
+  },
 });

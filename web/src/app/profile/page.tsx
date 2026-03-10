@@ -3,6 +3,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { auth } from "@/lib/auth/auth";
 import {
   ArrowLeft,
+  CreditCard,
   Key,
   LinkIcon,
   Loader2Icon,
@@ -18,6 +19,7 @@ import { ProfileUpdateForm } from "./_components/profile-update-form";
 import { SessionManagement } from "./_components/session-management";
 import { AccountLinking } from "./_components/account-linking";
 import { AccountDeletion } from "./_components/account-deletion";
+import { SubscriptionsTab } from "./_components/subscriptions-tab";
 
 export default async function ProfilePage() {
   const session = await auth.api.getSession({ headers: await headers() });
@@ -72,6 +74,10 @@ export default async function ProfilePage() {
             <LinkIcon />
             <span className="max-sm:hidden">계정</span>
           </TabsTrigger>
+          <TabsTrigger value="subscriptions">
+            <CreditCard />
+            <span className="max-sm:hidden">구독</span>
+          </TabsTrigger>
           <TabsTrigger value="danger">
             <Trash2 />
             <span className="max-sm:hidden">계정 삭제</span>
@@ -96,6 +102,10 @@ export default async function ProfilePage() {
           <LoadingSuspense>
             <LinkedAccountsTab />
           </LoadingSuspense>
+        </TabsContent>
+
+        <TabsContent value="subscriptions">
+          <SubscriptionsTab />
         </TabsContent>
 
         <TabsContent value="danger">
