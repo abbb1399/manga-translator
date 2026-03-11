@@ -11,6 +11,9 @@ import { STRIPE_PLANS } from "./stripe";
 import { organization } from "better-auth/plugins";
 import { admin as adminPlugin } from "better-auth/plugins/admin";
 import { ac, admin, user } from "@/components/auth/permissions";
+import { createAuthMiddleware } from "better-auth/api";
+import { sendWelcomeEmail } from "../emails/welcome-email";
+import { sendDeleteAccountVerificationEmail } from "../emails/delete-account-verification";
 
 const stripeClient = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: "2026-02-25.clover",
@@ -21,6 +24,9 @@ export const auth = betterAuth({
   user: {
     deleteUser: {
       enabled: true,
+      sendDeleteAccountVerification: async ({ user, url }) => {
+        await sendDeleteAccountVerificationEmail({ user, url });
+      },
     },
   },
   socialProviders: {
@@ -84,4 +90,18 @@ export const auth = betterAuth({
     provider: "pg",
     schema,
   }),
+  hooks: {
+    after: createAuthMiddleware(async (ctx) => {
+      if (ctx.path.startsWith("/sign-up")) {
+        const user = ctx.context.newSession?.user ?? {
+          name: ctx.body.name,
+          email: ctx.body.email,
+        };
+
+        if (user != null) {
+          await sendWelcomeEmail(user);
+        }
+      }
+    }),
+  },
 });
