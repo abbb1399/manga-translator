@@ -44,6 +44,13 @@ export async function POST(request: Request) {
 
     const config = {
       translator: { translator, target_lang: targetLang },
+      render: {
+        // 감지된 폰트 크기에서 5px를 빼서 렌더링. 예를 들어 라이브러리가 20px로 계산했으면 15px로 렌더링. 말풍선 가장자리에서 짤리는 걸 줄이기 위해 추가한 옵션.
+        font_size_offset: -5,
+        // offset 때문에 너무 작아지는 걸 방지하는 하한선. 15px 미만으로는 내려가지 않음. 기본값은 이미지 가로+세로 합계 / 200 으로 이미지 크기에 따라 달라지는데, 명시적으로 15로 고정한 것.
+        font_size_minimum: 15,
+        direction: "v",
+      },
     };
     await writeFile(hostConfigFile, JSON.stringify(config));
 
