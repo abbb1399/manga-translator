@@ -6,9 +6,11 @@ import { nextCookies } from "better-auth/next-js";
 import { stripe } from "@better-auth/stripe";
 import Stripe from "stripe";
 import { member } from "@/drizzle/schema";
-import { and, desc, eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 import { STRIPE_PLANS } from "./stripe";
 import { organization } from "better-auth/plugins";
+import { admin as adminPlugin } from "better-auth/plugins/admin";
+import { ac, admin, user } from "@/components/auth/permissions";
 
 const stripeClient = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: "2026-02-25.clover",
@@ -42,6 +44,13 @@ export const auth = betterAuth({
   },
   plugins: [
     nextCookies(),
+    adminPlugin({
+      ac,
+      roles: {
+        admin,
+        user,
+      },
+    }),
     organization(),
     stripe({
       stripeClient,
