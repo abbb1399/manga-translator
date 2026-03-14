@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { BetterAuthActionButton } from "@/components/auth/better-auth-action-button";
 import { LoginDialog } from "@/components/auth/login-dialog";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -16,8 +17,15 @@ import { authClient } from "@/lib/auth/auth-client";
 import Link from "next/link";
 
 export function Header() {
+  const router = useRouter();
   const [loginOpen, setLoginOpen] = useState(false);
   const { data: session } = authClient.useSession();
+
+  function handleSignOut() {
+    return authClient.signOut({
+      fetchOptions: { onSuccess: () => router.push("/") },
+    });
+  }
 
   return (
     <header className="border-b px-4 h-14 flex items-center justify-between">
@@ -45,7 +53,7 @@ export function Header() {
                 <BetterAuthActionButton
                   variant="ghost"
                   className="w-full justify-start h-auto p-0 text-sm"
-                  action={() => authClient.signOut()}
+                  action={handleSignOut}
                 >
                   로그아웃
                 </BetterAuthActionButton>
@@ -54,7 +62,9 @@ export function Header() {
           </DropdownMenu>
         ) : (
           <>
-            <Button size="sm" onClick={() => setLoginOpen(true)}>로그인</Button>
+            <Button size="sm" onClick={() => setLoginOpen(true)}>
+              로그인
+            </Button>
             <LoginDialog open={loginOpen} onOpenChange={setLoginOpen} />
           </>
         )}

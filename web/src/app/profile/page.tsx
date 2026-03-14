@@ -20,6 +20,7 @@ import { SessionManagement } from "./_components/session-management";
 import { AccountLinking } from "./_components/account-linking";
 import { AccountDeletion } from "./_components/account-deletion";
 import { SubscriptionsTab } from "./_components/subscriptions-tab";
+import { Badge } from "@/components/ui/badge";
 
 export default async function ProfilePage() {
   const session = await auth.api.getSession({ headers: await headers() });
@@ -53,7 +54,7 @@ export default async function ProfilePage() {
               <h1 className="text-3xl font-bold">
                 {session.user.name || "유저 프로필"}
               </h1>
-              {/* <Badge>{session.user.role}</Badge> */}
+              <Badge>{session.user.role}</Badge>
             </div>
             <p className="text-muted-foreground">{session.user.email}</p>
           </div>

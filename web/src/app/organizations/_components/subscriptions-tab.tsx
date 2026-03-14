@@ -121,7 +121,7 @@ export function SubscriptionsTab() {
                   )}
                 </div>
                 <p className="text-sm text-muted-foreground mt-1">
-                  {activePlan.limits.projects}개 프로젝트 포함
+                  {activePlan.limits.pages}개 페이지 포함
                 </p>
                 {activeSubscription.periodEnd && (
                   <p className="text-sm text-muted-foreground">
@@ -159,7 +159,7 @@ export function SubscriptionsTab() {
                 </div>
               </div>
               <CardDescription>
-                최대 {plan.limits.projects}개 프로젝트
+                최대 {plan.limits.pages}개 페이지
               </CardDescription>
             </CardHeader>
             <CardContent>
