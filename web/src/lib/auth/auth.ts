@@ -42,6 +42,9 @@ export const auth = betterAuth({
       clientId: process.env.GOOGLE_CLIENT_ID!,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
     },
+    kakao: {
+      clientId: process.env.KAKAO_CLIENT_ID!,
+    },
   },
   rateLimit: {
     storage: "database",

@@ -8,6 +8,14 @@ export function DiscordIcon(props: ComponentProps<"svg">) {
   );
 }
 
+export function KakaoIcon(props: ComponentProps<"svg">) {
+  return (
+    <svg className="size-4" viewBox="0 0 24 24" fill="currentColor" {...props}>
+      <path d="M12 3C6.477 3 2 6.477 2 10.8c0 2.763 1.74 5.19 4.37 6.61-.193.72-.697 2.61-.8 3.02-.12.5.184.494.387.36.16-.107 2.54-1.72 3.573-2.42.48.067.974.1 1.47.1 5.523 0 10-3.477 10-7.87C22 6.477 17.523 3 12 3z" />
+    </svg>
+  );
+}
+
 export function GoogleIcon(props: ComponentProps<"svg">) {
   return (
     <svg className="size-4" viewBox="0 0 24 24" fill="currentColor" {...props}>
