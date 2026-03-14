@@ -170,6 +170,19 @@ export const rateLimit = pgTable("rate_limit", {
   lastRequest: bigint("last_request", { mode: "number" }).notNull(),
 });
 
+export const translationUsage = pgTable(
+  "translation_usage",
+  {
+    id: text("id").primaryKey(),
+    userId: text("user_id")
+      .notNull()
+      .references(() => user.id, { onDelete: "cascade" }),
+    month: text("month").notNull(),
+    count: integer("count").notNull().default(0),
+  },
+  (table) => [uniqueIndex("translation_usage_userId_month_uidx").on(table.userId, table.month)],
+);
+
 export const userRelations = relations(user, ({ many }) => ({
   sessions: many(session),
   accounts: many(account),
