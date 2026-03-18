@@ -30,7 +30,7 @@ export function Header() {
   return (
     <header className="border-b px-4 h-14 flex items-center justify-between">
       <Link href="/" className="font-bold text-lg">
-        Manga Translator
+        Manga Flow
       </Link>
       <div className="flex items-center">
         {session ? (
