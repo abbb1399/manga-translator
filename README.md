@@ -186,7 +186,7 @@ ARCJET_API_KEY=
 
 ## 배포
 
-개인 데스크탑 서버 (Ubuntu + Nvidia GPU)에서 Docker Compose로 운영.
+개인 데스크탑 서버 (Ubuntu + Nvidia GPU)에서 Docker Compose로 운영 준비 중...
 
 ### GPU 활성화
 
