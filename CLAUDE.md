@@ -16,7 +16,7 @@
 
 ## 배포 환경
 
-AWS EC2. 모든 서비스를 Docker Compose로 운영 예정.
+개인 데스크탑 서버 (Ubuntu + Nvidia GPU). 모든 서비스를 Docker Compose로 운영.
 
 ## Project Structure
 
@@ -139,9 +139,11 @@ docker exec manga-translator python -m manga_translator local \
 
 API 키는 루트 `.env`에 설정 (컨테이너에 `env_file`로 주입됨).
 
-## GPU 사용 (선택)
+## GPU 사용
 
-Mac에서는 CPU 모드만 사용. EC2 Linux + Nvidia GPU 사용 시:
+배포 서버(Ubuntu + Nvidia GPU)에서 GPU 가속을 활성화하려면:
 
 1. [nvidia-container-toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html) 설치
 2. 루트 `docker-compose.yml`에서 GPU 관련 주석 해제
+
+Mac 로컬 개발 환경에서는 CPU 모드만 사용.
