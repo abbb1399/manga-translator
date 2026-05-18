@@ -38,13 +38,13 @@ export const auth = betterAuth({
       clientId: process.env.DISCORD_CLIENT_ID!,
       clientSecret: process.env.DISCORD_CLIENT_SECRET!,
     },
-    google: {
-      clientId: process.env.GOOGLE_CLIENT_ID!,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
-    },
-    kakao: {
-      clientId: process.env.KAKAO_CLIENT_ID!,
-    },
+    // google: {
+    //   clientId: process.env.GOOGLE_CLIENT_ID!,
+    //   clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+    // },
+    // kakao: {
+    //   clientId: process.env.KAKAO_CLIENT_ID!,
+    // },
   },
   rateLimit: {
     storage: "database",
